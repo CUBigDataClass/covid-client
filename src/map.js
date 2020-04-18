@@ -18,7 +18,6 @@ class Map_Comp extends Component {
     };
 
     this.getStats = this.getStats.bind(this);
-    this.test = this.test.bind(this);
   }
 
   getStats() {

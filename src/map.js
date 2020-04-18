@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
 import { Map, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import data from './countries'
 
 var http = require("http");
 
 class Map_Comp extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      countries : [],
+      minLat: -6.1751,
+      maxLat: 55.7558,
+      minLong: 37.6173,
+      maxLong: 139.6917,
+      num: 1,
+    };
+
+    this.getStats = this.getStats.bind(this);
+    this.test = this.test.bind(this);
+  }
 
   getStats() {
-    url = "http://localhost:3000/data?type=new_cases"
+    var url = "http://localhost:3001/data?type=new_cases"
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -38,7 +52,7 @@ class Map_Comp extends Component {
       res.on('end', () => {
           try {
               const parsedData = JSON.parse(rawData);
-              console.log(parsedData);      
+              this.setState({countries: parsedData["result"]})
               
           } catch (e) {
               console.error(e.message);
@@ -50,12 +64,14 @@ class Map_Comp extends Component {
   }
 
   render() {
-    var centerLat = (data.minLat + data.maxLat) / 2;
-    var distanceLat = data.maxLat - data.minLat;
+    this.getStats();
+    var centerLat = (this.state.minLat + this.state.maxLat) / 2;
+    var distanceLat = this.state.maxLat - this.state.minLat;
     var bufferLat = distanceLat * 0.05;
-    var centerLong = (data.minLong + data.maxLong) / 2;
-    var distanceLong = data.maxLong - data.minLong;
+    var centerLong = (this.state.minLong + this.state.maxLong) / 2;
+    var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
+    
     return (
       <div>
         <h3 style={{ textAlign: "center" }}>Covid Tracker</h3>
@@ -64,23 +80,24 @@ class Map_Comp extends Component {
           zoom={1}
           center={[centerLat, centerLong]}
           bounds={[
-            [data.minLat - bufferLat, data.minLong - bufferLong],
-            [data.maxLat + bufferLat, data.maxLong + bufferLong]
+            [this.state.minLat - bufferLat, this.state.minLong - bufferLong],
+            [this.state.maxLat + bufferLat, this.state.maxLong + bufferLong]
           ]}
         >
           <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
           
-          {data.country.map((country, k) => {
+          {this.state.countries.map((country, k) => {
+            console.log(country)
             return (
               <CircleMarker
                 key={k}
                 center={[country["coordinates"][1], country["coordinates"][0]]}
-                radius={20 * Math.log(country["deaths"]/500)}
+                radius={20 * Math.log(country["stat"]/500)}
                 fillOpacity={0.5}
                 stroke={false}
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["name"] + ": " + "death toll: " + " " + country["deaths"]}</span>
+                  <span>{country["name"] + ": " + "death toll: " + " " + country["stat"]}</span>
                 </Tooltip>
               </CircleMarker>)
           })

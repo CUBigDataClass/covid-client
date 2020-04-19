@@ -28,7 +28,7 @@ class MapComp extends Component {
     let statTypes = []
     statTypes.push({value: "total_cases", display: "Total cases"});
     statTypes.push({value: "new_cases", display: "New cases"});
-    statTypes.push({value: "total_cases", display: "Total deaths"});
+    statTypes.push({value: "total_deaths", display: "Total deaths"});
     statTypes.push({value: "new_deaths", display: "New deaths"});
 
     this.setState({statTypes});

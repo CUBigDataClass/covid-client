@@ -8,6 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import { createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
+
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -15,21 +17,21 @@ const columns = [
     {
         id: 'population',
         label: 'Population',
-        minWidth: 170,
+        minWidth: 150,
         align: 'right',
         format: (value) => value.toLocaleString(),
     },
     {
         id: 'size',
         label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
+        minWidth: 150,
         align: 'right',
         format: (value) => value.toLocaleString(),
     },
     {
         id: 'density',
         label: 'Density',
-        minWidth: 170,
+        minWidth: 150,
         align: 'right',
         format: (value) => value.toFixed(2),
     },
@@ -61,14 +63,21 @@ const rows = [
 const useStyles = makeStyles({
     root: {
         width: '100%',
+        color: 'white',
+        overflowX: "auto",
+
     },
     container: {
         maxHeight: 700,
 
     },
-
-
 });
+const darkTheme = createMuiTheme({
+    palette: {
+        type: 'dark',
+    },
+});
+
 
 export default function DataTable() {
     const classes = useStyles();
@@ -85,7 +94,8 @@ export default function DataTable() {
     };
 
     return (
-        <Paper className={classes.root}>
+        <ThemeProvider theme={darkTheme}>
+        <Paper className={classes.root} >
             <TableContainer className={classes.container}>
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
@@ -129,5 +139,6 @@ export default function DataTable() {
                 onChangeRowsPerPage={handleChangeRowsPerPage}
             />
         </Paper>
+        </ThemeProvider>
     );
 }

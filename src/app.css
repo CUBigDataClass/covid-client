@@ -1,9 +1,22 @@
 .root{
-    margin: 10px;
-    min-height: 100vh;
+    margin-top: 10px;
+    height: auto;
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 .app{
     background-color: #121212;
     color: white;
+}
+#footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 20px;
+    width: 100%;
+    background-color: #121212;
+}
+#footer-content {
+    text-align-last: center;
+    align-content: center;
+    /*padding: 5px;*/
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Map, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
+import Dropdown from './Dropdown.js'
 var http = require("http");
 
 class MapComp extends Component {
@@ -9,17 +9,39 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
+      current_url : "http://localhost:3001/data?type=new_cases",
       countries : [],
       minLat: -6.1751,
       maxLat: 55.7558,
       minLong: 37.6173,
       maxLong: 139.6917,
+      selectedStat: "total_cases",
+      statTypes: []
     };
     this.getStats = this.getStats.bind(this);
+    this.changeStat= this.changeStat.bind(this);
+
+  }
+     
+
+  populateDropdown() {
+    let statTypes = []
+    statTypes.push({value: "total_cases", display: "Total cases"});
+    statTypes.push({value: "new_cases", display: "New cases"});
+    statTypes.push({value: "total_cases", display: "Total deaths"});
+    statTypes.push({value: "new_deaths", display: "New deaths"});
+
+    this.setState({statTypes});
+  }
+
+  changeStat(stat) {
+    this.setState({selectedStat: stat}, () =>
+    this.getStats());
   }
 
   getStats() {
-    var url = "http://localhost:3001/data?type=total_deaths"
+    var url = "http://localhost:3001/data?type="
+    url += this.state.selectedStat;
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -60,6 +82,10 @@ class MapComp extends Component {
     });
   }
 
+  componentDidMount() {
+    this.populateDropdown();
+  }
+
   render() {
     var centerLat = (this.state.minLat + this.state.maxLat) / 2;
     var distanceLat = this.state.maxLat - this.state.minLat;
@@ -68,9 +94,17 @@ class MapComp extends Component {
     var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
 
+    if (this.state.countries.length === 0) {
+      this.getStats();
+    }
 
     return (
       <div>
+        <div>
+         Data type: <select onChange={(e) => this.changeStat(e.target.value)}>
+            {this.state.statTypes.map((stat) => <option key={stat.value} value={stat.value}>{stat.display}</option>)}
+            </select>
+          </div>
         <Map
           style={{ height: "700px", width: '100%' }}
           zoom={1}
@@ -82,7 +116,7 @@ class MapComp extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
           {this.state.countries.map((country, k) => {
-            console.log(country);
+            console.log(country)
             return (
               <CircleMarker
                 key={k}
@@ -95,7 +129,7 @@ class MapComp extends Component {
 
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["country"] + ": " + "death toll: " + " " + country["stat"]}</span>
+                  <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
                 </Tooltip>
               </CircleMarker>)
           })

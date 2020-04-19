@@ -16,10 +16,10 @@ var country = [];
 for (var key in stringData2) {
     country.push(stringData2[key])
 }
-console.log('arr: ')
-console.log(typeof arr)
+console.log('arr: ');
+console.log(typeof arr);
 
-console.log( stringData2)
+console.log( stringData2);
 
 let data = {
     country,
@@ -28,7 +28,7 @@ let data = {
     minLong: 37.6173,
     maxLong: 139.6917
 
-}
+};
 
 
 

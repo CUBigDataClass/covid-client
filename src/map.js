@@ -25,7 +25,7 @@ class Map_Comp extends Component {
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
-      
+
       // validate respose
       let error;
       if (statusCode !== 200) {
@@ -44,7 +44,7 @@ class Map_Comp extends Component {
 
       res.setEncoding('utf8');
       let rawData = '';
-      
+
       res.on('data', (chunk) => { rawData += chunk; });
 
       // parse response and update current anagrams
@@ -52,7 +52,7 @@ class Map_Comp extends Component {
           try {
               const parsedData = JSON.parse(rawData);
               this.setState({countries: parsedData["result"]})
-              
+
           } catch (e) {
               console.error(e.message);
           }
@@ -70,12 +70,11 @@ class Map_Comp extends Component {
     var centerLong = (this.state.minLong + this.state.maxLong) / 2;
     var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
-    
+
     return (
       <div>
-        <h3 style={{ textAlign: "center" }}>Covid Tracker</h3>
         <Map
-          style={{ height: "480px", width: "100%" }}
+          style={{ height: "750px", width: '100%' }}
           zoom={1}
           center={[centerLat, centerLong]}
           bounds={[
@@ -83,13 +82,15 @@ class Map_Comp extends Component {
             [this.state.maxLat + bufferLat, this.state.maxLong + bufferLong]
           ]}
         >
-          <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+
           {this.state.countries.map((country, k) => {
             console.log(country)
             return (
               <CircleMarker
                 key={k}
+                color={'red'}
+                fillColor={'red'}
                 center={[country["coordinates"][1], country["coordinates"][0]]}
                 radius={20 * Math.log(country["stat"]/500)}
                 fillOpacity={0.5}

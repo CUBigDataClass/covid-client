@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.10",
+    "bootstrap": "^4.4.1",
     "leaflet": "^1.6.0",
     "react": "^16.6.3",
+    "react-bootstrap": "^1.0.0",
     "react-dom": "^16.6.3",
     "react-leaflet": "^2.1.2",
     "react-scripts": "2.1.1"

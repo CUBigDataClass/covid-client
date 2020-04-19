@@ -14,9 +14,8 @@ class Map_Comp extends Component {
     var bufferLong = distanceLong * 0.05;
     return (
       <div>
-        <h3 style={{ textAlign: "center" }}>Covid Tracker</h3>
         <Map
-          style={{ height: "480px", width: "100%" }}
+          style={{ height: "750px", width: '100%' }}
           zoom={1}
           center={[centerLat, centerLong]}
           bounds={[
@@ -24,19 +23,21 @@ class Map_Comp extends Component {
             [data.maxLat + bufferLat, data.maxLong + bufferLong]
           ]}
         >
-          <TileLayer url="http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
           
           {data.country.map((country, k) => {
             return (
               <CircleMarker
                 key={k}
+                color={'red'}
+                fillColor={'red'}
                 center={[country["coordinates"][1], country["coordinates"][0]]}
                 radius={20 * Math.log(country["deaths"]/500)}
                 fillOpacity={0.5}
                 stroke={false}
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["name"] + ": " + "death toll: " + " " + country["deaths"]}</span>
+                  <span>{country["name"] + ": " + "Death Toll: " + " " + country["deaths"]}</span>
                 </Tooltip>
               </CircleMarker>)
           })

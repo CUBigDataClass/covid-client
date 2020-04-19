@@ -4,8 +4,8 @@ import DataTable from './table.js';
 import Box from "@material-ui/core/Box";
 import  'bootstrap/dist/css/bootstrap.min.css' ;
 import './app.css';
-function App() {
 
+function App() {
 
   return (
       <div className='app'>

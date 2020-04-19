@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Map, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-
+import Dropdown from './Dropdown.js'
 var http = require("http");
 
 class MapComp extends Component {
@@ -9,6 +9,7 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
+      current_url : "http://localhost:3001/data?type=new_cases",
       countries : [],
       minLat: -6.1751,
       maxLat: 55.7558,
@@ -19,8 +20,9 @@ class MapComp extends Component {
     };
     this.getStats = this.getStats.bind(this);
     this.changeStat= this.changeStat.bind(this);
-    this.populateDropdown= this.populateDropdown.bind(this);
+
   }
+     
 
   populateDropdown() {
     let statTypes = []
@@ -36,9 +38,6 @@ class MapComp extends Component {
     this.setState({selectedStat: stat}, () =>
     this.getStats());
   }
-
-
-
 
   getStats() {
     var url = "http://localhost:3001/data?type="
@@ -95,6 +94,9 @@ class MapComp extends Component {
     var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
 
+    if (this.state.countries.length === 0) {
+      this.getStats();
+    }
 
     return (
       <div>
@@ -114,6 +116,7 @@ class MapComp extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
           {this.state.countries.map((country, k) => {
+            console.log(country)
             return (
               <CircleMarker
                 key={k}
@@ -126,7 +129,7 @@ class MapComp extends Component {
 
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["country"] + ": " + "death toll: " + " " + country["stat"]}</span>
+                  <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
                 </Tooltip>
               </CircleMarker>)
           })

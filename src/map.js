@@ -14,12 +14,36 @@ class MapComp extends Component {
       maxLat: 55.7558,
       minLong: 37.6173,
       maxLong: 139.6917,
+      selectedStat: "total_cases",
+      statTypes: []
     };
     this.getStats = this.getStats.bind(this);
+    this.changeStat= this.changeStat.bind(this);
+    this.populateDropdown= this.populateDropdown.bind(this);
   }
 
+  populateDropdown() {
+    let statTypes = []
+    statTypes.push({value: "total_cases", display: "Total cases"});
+    statTypes.push({value: "new_cases", display: "New cases"});
+    statTypes.push({value: "total_cases", display: "Total deaths"});
+    statTypes.push({value: "new_deaths", display: "New deaths"});
+
+    this.setState({statTypes});
+  }
+
+  changeStat(stat) {
+    this.setState({selectedStat: stat}, () =>
+    this.getStats());
+  }
+
+
+
+
   getStats() {
-    var url = "http://localhost:3001/data?type=total_deaths"
+    var url = "http://localhost:3001/data?type="
+    url += this.state.selectedStat;
+    console.log(url)
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -60,6 +84,10 @@ class MapComp extends Component {
     });
   }
 
+  componentDidMount() {
+    this.populateDropdown();
+  }
+
   render() {
     var centerLat = (this.state.minLat + this.state.maxLat) / 2;
     var distanceLat = this.state.maxLat - this.state.minLat;
@@ -74,6 +102,11 @@ class MapComp extends Component {
 
     return (
       <div>
+        <div>
+         Data type: <select onChange={(e) => this.changeStat(e.target.value)}>
+            {this.state.statTypes.map((stat) => <option key={stat.value} value={stat.value}>{stat.display}</option>)}
+            </select>
+          </div>
         <Map
           style={{ height: "750px", width: '100%' }}
           zoom={1}
@@ -85,7 +118,7 @@ class MapComp extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
           {this.state.countries.map((country, k) => {
-            console.log(country.country)
+            //(country.country)
             return (
               <CircleMarker
                 key={k}

@@ -9,7 +9,7 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
-      current_url : "http://localhost:3001/data?type=new_cases",
+      url : "http://localhost:3001/data?type=",
       countries : [],
       minLat: -6.1751,
       maxLat: 55.7558,
@@ -40,8 +40,7 @@ class MapComp extends Component {
   }
 
   getStats() {
-    var url = "http://localhost:3001/data?type="
-    url += this.state.selectedStat;
+    var url = this.state.url + this.state.selectedStat
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];

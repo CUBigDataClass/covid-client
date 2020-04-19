@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 var http = require("http");
 
-class Map_Comp extends Component {
+class MapComp extends Component {
   constructor(props) {
     super(props);
 
@@ -85,14 +85,14 @@ class Map_Comp extends Component {
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
           {this.state.countries.map((country, k) => {
-            
+            console.log(country.country)
             return (
               <CircleMarker
                 key={k}
                 color={'red'}
                 fillColor={'red'}
                 center={[country["coordinates"][1], country["coordinates"][0]]}
-                radius={5*Math.log(country["stat"])}
+                radius={5 * Math.log(country["stat"])}
                 fillOpacity={0.5}
                 stroke={false}
               >
@@ -108,4 +108,4 @@ class Map_Comp extends Component {
   }
 }
 
-export default Map_Comp;
+export default MapComp;

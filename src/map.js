@@ -43,7 +43,6 @@ class MapComp extends Component {
   getStats() {
     var url = "http://localhost:3001/data?type="
     url += this.state.selectedStat;
-    console.log(url)
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];

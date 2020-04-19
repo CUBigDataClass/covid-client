@@ -71,10 +71,11 @@ class Map_Comp extends Component {
     var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
 
+
     return (
       <div>
         <Map
-          style={{ height: "750px", width: '100%' }}
+          style={{ height: "700px", width: '100%' }}
           zoom={1}
           center={[centerLat, centerLong]}
           bounds={[
@@ -85,7 +86,7 @@ class Map_Comp extends Component {
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
           {this.state.countries.map((country, k) => {
-            console.log(country)
+            console.log(country);
             return (
               <CircleMarker
                 key={k}
@@ -95,6 +96,7 @@ class Map_Comp extends Component {
                 radius={20 * Math.log(country["stat"]/500)}
                 fillOpacity={0.5}
                 stroke={false}
+
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
                   <span>{country["name"] + ": " + "death toll: " + " " + country["stat"]}</span>

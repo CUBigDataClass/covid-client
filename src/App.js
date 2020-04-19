@@ -1,6 +1,7 @@
 import React from 'react';
 import Map_Comp from './map.js';
 import DataTable from './table.js';
+import Box from "@material-ui/core/Box";
 import  'bootstrap/dist/css/bootstrap.min.css' ;
 import './app.css';
 function App() {
@@ -8,10 +9,9 @@ function App() {
 
   return (
       <div className='app'>
-          <h1 align={'center'}>Covid Tracker</h1>
+          <h1 align={'center'} >Covid Tracker</h1>
           <br/>
         <div className="container-fluid">
-
             <div className="row justify-content">
                 <div className="col-sm-4">
                     <DataTable />
@@ -21,6 +21,16 @@ function App() {
                 </div>
             </div>
         </div>
+            <br/>
+          <div className="container-fluid">
+            <div className="row justify-content-center" >
+                <p> Slider here ??</p>
+            </div>
+        </div>
+          <Box className={"footer"} color="#424242" p={1} id={"box"} >
+              <hr color={'#424242'} />
+              <p id="footer-content">Copyright © 2020 - Matthew Donovan, Maura Winstanley, Kyle Bremont, Alison Ostlund </p>
+          </Box>
       </div>
   );
 }

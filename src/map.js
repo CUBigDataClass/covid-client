@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 
 var http = require("http");
 
-class Map_Comp extends Component {
+class MapComp extends Component {
   constructor(props) {
     super(props);
 
@@ -14,14 +14,12 @@ class Map_Comp extends Component {
       maxLat: 55.7558,
       minLong: 37.6173,
       maxLong: 139.6917,
-      num: 1,
     };
-
     this.getStats = this.getStats.bind(this);
   }
 
   getStats() {
-    var url = "http://localhost:3001/data?type=new_cases"
+    var url = "http://localhost:3001/data?type=total_deaths"
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -59,11 +57,10 @@ class Map_Comp extends Component {
       });
       }).on('error', (e) => {
       console.error(`Got error: ${e.message}`);
-  });
+    });
   }
 
   render() {
-    this.getStats();
     var centerLat = (this.state.minLat + this.state.maxLat) / 2;
     var distanceLat = this.state.maxLat - this.state.minLat;
     var bufferLat = distanceLat * 0.05;
@@ -84,7 +81,6 @@ class Map_Comp extends Component {
           ]}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-
           {this.state.countries.map((country, k) => {
             console.log(country);
             return (
@@ -93,13 +89,13 @@ class Map_Comp extends Component {
                 color={'red'}
                 fillColor={'red'}
                 center={[country["coordinates"][1], country["coordinates"][0]]}
-                radius={20 * Math.log(country["stat"]/500)}
+                radius={5 * Math.log(country["stat"])}
                 fillOpacity={0.5}
                 stroke={false}
 
               >
                 <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["name"] + ": " + "death toll: " + " " + country["stat"]}</span>
+                  <span>{country["country"] + ": " + "death toll: " + " " + country["stat"]}</span>
                 </Tooltip>
               </CircleMarker>)
           })
@@ -110,4 +106,4 @@ class Map_Comp extends Component {
   }
 }
 
-export default Map_Comp;
+export default MapComp;

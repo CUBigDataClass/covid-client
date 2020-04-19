@@ -1,5 +1,5 @@
 import React from 'react';
-import Map_Comp from './map.js';
+import MapComp from './map.js';
 import DataTable from './table.js';
 import Box from "@material-ui/core/Box";
 import  'bootstrap/dist/css/bootstrap.min.css' ;
@@ -17,7 +17,7 @@ function App() {
                     <DataTable />
                 </div>
                 <div className="col-sm-8">
-                    <Map_Comp />
+                    <MapComp />
                 </div>
             </div>
         </div>

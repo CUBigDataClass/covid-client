@@ -1,26 +1,7 @@
 import React, { Component } from 'react';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import DataTable, { createTheme } from 'react-data-table-component';
-// import { createMuiTheme, ThemeProvider  } from '@material-ui/core/styles';
+import DataTable from 'react-data-table-component';
 var http = require("http");
-// const [page, setPage] = React.useState(0);
-//     const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-//     const handleChangePage = (event, newPage) => {
-//         setPage(newPage);
-//     };
-
-//     const handleChangeRowsPerPage = (event) => {
-//         setRowsPerPage(+event.target.value);
-//         setPage(0);
-//     };
 
 class Comp extends Component {
 
@@ -69,53 +50,32 @@ class Comp extends Component {
 
       // parse response and update current anagrams
       res.on('end', () => {
-          try {
-
-              const parsedData = JSON.parse(rawData);
-              
-              if (param == "new_cases"){
-                // console.log('new_cases')
-              
-
-                this.setState({new_cases: parsedData});
-                
-              } else if (param == "total_cases") {
-
-                this.setState({total_cases: parsedData});
-                // console.log('IN cases')
-                
-              } else if (param == "new_deaths") {
-                
-                this.setState({new_deaths: parsedData});
-                // console.log('in deaths len: ', this.state.new_deaths.length)
-              } else {
-                
-                
-                this.setState({total_deaths: parsedData});
-              }
-
-          } catch (e) {
-              console.error(e.message);
+        try {
+          const parsedData = JSON.parse(rawData)
+          if (param == "new_cases"){
+            this.setState({new_cases: parsedData});
+          } else if (param == "total_cases") {
+            this.setState({total_cases: parsedData})
+          } else if (param == "new_deaths") {
+            this.setState({new_deaths: parsedData});
+          } else {
+            this.setState({total_deaths: parsedData});
           }
+        } catch (e) {
+          console.error(e.message);
+        }
       });
-      }).on('error', (e) => {
+    }).on('error', (e) => {
       console.error(`Got error: ${e.message}`);
     });
   }
   
 componentDidMount() {
-
     this.getStats("http://localhost:3001/data_nocoords?type=new_cases", "new_cases");
     this.getStats("http://localhost:3001/data_nocoords?type=total_cases", "total_cases");
     this.getStats("http://localhost:3001/data_nocoords?type=total_deaths", "total_deaths");
     this.getStats("http://localhost:3001/data_nocoords?type=new_deaths", "new_deaths");
-
-   
-
   }
-
-
-
 
  render(){
 
@@ -123,38 +83,28 @@ componentDidMount() {
  
     { name: 'Country', selector: 'country', sortable: true },
     {
-        
         name: 'Total Cases',
         selector: 'total_cases',
-    
     },
     {
         name: 'Total Deaths',
         selector: 'total_deaths',
-     
     },
     {
         name: 'New Cases',
         selector: 'new_cases'
-     
     },
     {
       name: "New Deaths",
       selector: 'new_deaths',
-      // label: 'New Deaths',
-      // minWidth: 100,
-      // align: 'center',
-      // format: (value) => value.toLocaleString(),
   },
 ];
+
 function createData(name, new_cases, total_cases, new_deaths, total_deaths){
-  
   return { "country":name, "new_cases": new_cases, "total_cases": total_cases, "new_deaths": new_deaths, "total_deaths": total_deaths };
 }
   
     let dict = {} 
-    // console.log('fuck')
-    // console.log(this.state)
     console.log('total deaths: ', this.state.total_deaths)
     let new_cases = this.state.new_cases
     for (var key in new_cases) {

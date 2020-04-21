@@ -16,11 +16,12 @@ class MapComp extends Component {
       minLong: 37.6173,
       maxLong: 139.6917,
       selectedStat: "total_cases",
-      statTypes: [],
+      statTypes: []
     };
     this.getStats = this.getStats.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
     this.changeStat= this.changeStat.bind(this);
+
   }
      
 
@@ -86,7 +87,7 @@ class MapComp extends Component {
   }
 
   getStats() {
-    var url = this.state.url + "data?type=" +  this.state.selectedStat;
+    var url = this.state.url + "data?type=" +  this.state.selectedStat
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -162,6 +163,7 @@ class MapComp extends Component {
             [this.state.minLat - bufferLat, this.state.minLong - bufferLong],
             [this.state.maxLat + bufferLat, this.state.maxLong + bufferLong]
           ]}
+          scrollWheelZoom={false}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
@@ -173,7 +175,7 @@ class MapComp extends Component {
                   color={'red'}
                   fillColor={'red'}
                   center={this.state.coordinates[country["country"]]}
-                  radius={5 * Math.log(country["stat"])}
+                  radius={4 * Math.log(country["stat"])}
                   fillOpacity={0.5}
                   stroke={false}
                 >

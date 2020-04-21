@@ -1,11 +1,10 @@
 import React from 'react';
-import MapComp from './map.js';
-import DataTable from './table.js';
+import MapComp from './components/map.js';
 import Box from "@material-ui/core/Box";
-import Comp from './comp.js';
+import Table from './components/table.js';
 import  'bootstrap/dist/css/bootstrap.min.css' ;
 import './app.css';
-import Graph from './graph.js';
+import Graph from './components/graph.js';
 
 function App() {
 
@@ -14,20 +13,18 @@ function App() {
           <h1 align={'center'} >Covid Tracker</h1>
           <br/>
         <div className="container-fluid">
-            <div className="row justify-content">
-                <div className="col-sm-4">
-                    <Comp />
-                   
-                </div>
-                <div className="col-sm-8">
-                    <MapComp />
-                </div>
-            </div>
+            <MapComp></MapComp>
         </div>
             <br/>
-          <div className="container-fluid">
+        <div className="container-fluid">
             <div className="row justify-content-center" >
-            <Graph></Graph>
+                <Graph></Graph>
+            </div>
+        </div>
+        <br/>
+        <div className="container-fluid">
+            <div className="row justify-content-center" >
+                <Table></Table>
             </div>
         </div>
           <Box className={"footer"} color="#424242" p={1} id={"box"} >

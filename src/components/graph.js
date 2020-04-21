@@ -46,10 +46,10 @@ class Graph extends Component {
     });
 
     let statTypes = []
-    statTypes.push({value: "total_cases", display: "Total cases"});
-    statTypes.push({value: "new_cases", display: "New cases"});
-    statTypes.push({value: "total_deaths", display: "Total deaths"});
-    statTypes.push({value: "new_deaths", display: "New deaths"});
+    statTypes.push({value: "total_cases", display: "Cumulative cases"});
+    statTypes.push({value: "new_cases", display: "Daily cases"});
+    statTypes.push({value: "total_deaths", display: "Cumulative deaths"});
+    statTypes.push({value: "new_deaths", display: "Daily deaths"});
 
     this.setState({ countries, statTypes });
   }

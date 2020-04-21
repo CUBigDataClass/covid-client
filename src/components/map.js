@@ -27,10 +27,10 @@ class MapComp extends Component {
 
   populateDropdown() {
     let statTypes = []
-    statTypes.push({value: "total_cases", display: "Total cases"});
-    statTypes.push({value: "new_cases", display: "New cases"});
-    statTypes.push({value: "total_deaths", display: "Total deaths"});
-    statTypes.push({value: "new_deaths", display: "New deaths"});
+    statTypes.push({value: "total_cases", display: "Cumulative cases"});
+    statTypes.push({value: "new_cases", display: "Daily cases"});
+    statTypes.push({value: "total_deaths", display: "Cumulative deaths"});
+    statTypes.push({value: "new_deaths", display: "Daily deaths"});
 
     this.setState({statTypes});
   }
@@ -172,8 +172,8 @@ class MapComp extends Component {
               return (
                 <CircleMarker
                   key={k}
-                  color={'red'}
-                  fillColor={'red'}
+                  color={(((this.state.selectedStat == 'total_cases') || (this.state.selectedStat == 'new_cases'))? 'blue' : 'red')}
+                  fillColor={(((this.state.selectedStat == 'total_cases') || (this.state.selectedStat == 'new_cases'))? 'blue' : 'red')}
                   center={this.state.coordinates[country["country"]]}
                   radius={4 * Math.log(country["stat"])}
                   fillOpacity={0.5}

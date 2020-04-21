@@ -1,6 +1,6 @@
 import React from 'react';
 import MapComp from './map.js';
-import DataTable from './table_new.js';
+import DataTable from './table.js';
 import Box from "@material-ui/core/Box";
 import Comp from './comp.js';
 import  'bootstrap/dist/css/bootstrap.min.css' ;

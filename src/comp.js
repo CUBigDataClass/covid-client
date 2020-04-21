@@ -190,7 +190,7 @@ function createData(name, new_cases, total_cases, new_deaths, total_deaths){
       <div className="container">
      
         <DataTable
-          title="COvid Cunt"
+          title="Cases by country"
           columns={columns}
           data={rows}
           fixedHeader={true}

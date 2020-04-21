@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Map, CircleMarker, TileLayer, Tooltip } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import Dropdown from './Dropdown.js'
 var http = require("http");
 
 class MapComp extends Component {
@@ -17,12 +16,11 @@ class MapComp extends Component {
       minLong: 37.6173,
       maxLong: 139.6917,
       selectedStat: "total_cases",
-      statTypes: []
+      statTypes: [],
     };
     this.getStats = this.getStats.bind(this);
     this.getCoordinates = this.getCoordinates.bind(this);
     this.changeStat= this.changeStat.bind(this);
-
   }
      
 
@@ -88,7 +86,7 @@ class MapComp extends Component {
   }
 
   getStats() {
-    var url = this.state.url + "data?type=" +  this.state.selectedStat
+    var url = this.state.url + "data?type=" +  this.state.selectedStat;
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];

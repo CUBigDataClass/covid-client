@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 import Comp from './comp.js';
 import  'bootstrap/dist/css/bootstrap.min.css' ;
 import './app.css';
+import Graph from './graph.js';
 
 function App() {
 
@@ -26,7 +27,7 @@ function App() {
             <br/>
           <div className="container-fluid">
             <div className="row justify-content-center" >
-                <p> Slider here ??</p>
+            <Graph></Graph>
             </div>
         </div>
           <Box className={"footer"} color="#424242" p={1} id={"box"} >

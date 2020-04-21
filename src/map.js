@@ -9,8 +9,9 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
-      url : "http://localhost:3001/data?type=",
+      url : "http://localhost:3001/",
       countries : [],
+      coordinates: [],
       minLat: -6.1751,
       maxLat: 55.7558,
       minLong: 37.6173,
@@ -19,6 +20,7 @@ class MapComp extends Component {
       statTypes: []
     };
     this.getStats = this.getStats.bind(this);
+    this.getCoordinates = this.getCoordinates.bind(this);
     this.changeStat= this.changeStat.bind(this);
 
   }
@@ -39,8 +41,8 @@ class MapComp extends Component {
     this.getStats());
   }
 
-  getStats() {
-    var url = this.state.url + this.state.selectedStat
+  getCoordinates() {
+    var url = this.state.url + "coords"
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -70,7 +72,53 @@ class MapComp extends Component {
       res.on('end', () => {
           try {
               const parsedData = JSON.parse(rawData);
-              this.setState({countries: parsedData["result"]})
+              var coordinates = {}
+              for (let i = 0; i < parsedData.length; i++) {
+                coordinates[parsedData[i]._id] = [parsedData[i].longitude, parsedData[i].latitude]
+              }
+              this.setState({coordinates})
+
+          } catch (e) {
+              console.error(e.message);
+          }
+      });
+      }).on('error', (e) => {
+      console.error(`Got error: ${e.message}`);
+    });
+  }
+
+  getStats() {
+    var url = this.state.url + "data?type=" +  this.state.selectedStat
+    http.get(url, (res) => {
+      const { statusCode } = res;
+      const contentType = res.headers['content-type'];
+
+      // validate respose
+      let error;
+      if (statusCode !== 200) {
+          error = new Error('Request Failed.\n' +
+                          `Status Code: ${statusCode}`);
+      } else if (!/^application\/json/.test(contentType)) {
+          error = new Error('Invalid content-type.\n' +
+                          `Expected application/json but received ${contentType}`);
+      }
+      if (error) {
+          console.error(error.message);
+          // consume response data to free up memory
+          res.resume();
+          return;
+      }
+
+      res.setEncoding('utf8');
+      let rawData = '';
+
+      res.on('data', (chunk) => { rawData += chunk; });
+
+      // parse response and update current anagrams
+      res.on('end', () => {
+          try {
+              const parsedData = JSON.parse(rawData);
+              this.setState({countries: parsedData})
 
           } catch (e) {
               console.error(e.message);
@@ -93,6 +141,10 @@ class MapComp extends Component {
     var distanceLong = this.state.maxLong - this.state.minLong;
     var bufferLong = distanceLong * 0.05;
 
+    if (this.state.coordinates.length === 0) {
+      this.getCoordinates();
+    }
+    
     if (this.state.countries.length === 0) {
       this.getStats();
     }
@@ -114,27 +166,29 @@ class MapComp extends Component {
           ]}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-          {this.state.countries.map((country, k) => {
-            console.log(country)
-            return (
-              <CircleMarker
-                key={k}
-                color={'red'}
-                fillColor={'red'}
-                center={[country["coordinates"][1], country["coordinates"][0]]}
-                radius={5 * Math.log(country["stat"])}
-                fillOpacity={0.5}
-                stroke={false}
 
-              >
-                <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
-                  <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
-                </Tooltip>
-              </CircleMarker>)
-          })
-          }
+        {this.state.countries.map((country, k) => {
+            if (this.state.coordinates[country["country"]] != undefined) {
+              return (
+                <CircleMarker
+                  key={k}
+                  color={'red'}
+                  fillColor={'red'}
+                  center={this.state.coordinates[country["country"]]}
+                  radius={5 * Math.log(country["stat"])}
+                  fillOpacity={0.5}
+                  stroke={false}
+                >
+                  <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
+                    <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
+                  </Tooltip>
+                </CircleMarker>)
+            }
+          })
+          }
+        }
         </Map>
-      </div>
+      </div>      
     );
   }
 }

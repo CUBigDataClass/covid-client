@@ -1,7 +1,8 @@
 import React from 'react';
 import MapComp from './map.js';
-import DataTable from './table.js';
+import DataTable from './table_new.js';
 import Box from "@material-ui/core/Box";
+import Comp from './comp.js';
 import  'bootstrap/dist/css/bootstrap.min.css' ;
 import './app.css';
 import Graph from './graph.js';
@@ -15,7 +16,8 @@ function App() {
         <div className="container-fluid">
             <div className="row justify-content">
                 <div className="col-sm-4">
-                    <DataTable />
+                    <Comp />
+                   
                 </div>
                 <div className="col-sm-8">
                     <MapComp />

@@ -1,7 +1,18 @@
 import React, { Component } from 'react';
 import "leaflet/dist/leaflet.css";
 import './graph.css';
-import {XYPlot, XAxis, YAxis, VerticalBarSeries, LineSeries} from 'react-vis';
+import {
+    XYPlot,
+    XAxis,
+    YAxis,
+    VerticalBarSeries,
+    VerticalGridLines,
+    LineSeries,
+    AreaSeries,
+    Hint,
+    Crosshair,
+    HorizontalGridLines
+} from 'react-vis';
 var http = require("http");
 
 class Graph extends Component {
@@ -36,16 +47,16 @@ class Graph extends Component {
   }
 
   populateDropdown() {
-    var stats = this.state.dates[0]
+    var stats = this.state.dates[0];
 
-    let countries = []
+    let countries = [];
     Object.keys(stats).forEach(function(key) {
         if (key !== "_id" && key !== "date") {
             countries.push({value: key, display: key})
         }
     });
 
-    let statTypes = []
+    let statTypes = [];
     statTypes.push({value: "total_cases", display: "Cumulative cases"});
     statTypes.push({value: "new_cases", display: "Daily cases"});
     statTypes.push({value: "total_deaths", display: "Cumulative deaths"});
@@ -99,9 +110,9 @@ class Graph extends Component {
   }
 
   getDataForCountry() {
-    var stats = []
+    var stats = [];
     for (var index in this.state.dates) {
-        var stat = this.state.dates[index][this.state.country]
+        var stat = this.state.dates[index][this.state.country];
         if (stat == null) {
             stats.push({x: parseInt(index), y: 0})
         } else {
@@ -111,7 +122,15 @@ class Graph extends Component {
     }
     return stats;
   }
+    _forgetValue = () => {
+        this.setState({
+            value: null
+        });
+    };
 
+    _rememberValue = value => {
+        this.setState({value});
+    };
   render() {
     if (this.state.dates.length === 0) {
         this.getDates();
@@ -119,9 +138,11 @@ class Graph extends Component {
 
     if (this.state.call) {
         var stats = this.getDataForCountry();
+
     }
 
     const stat = this.state.selectedStat;
+
 
     return (
       <div className="graph">
@@ -142,21 +163,27 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
-          <XYPlot height={650} width={950} color="white">
+          <XYPlot height={650} width={900} color="white" >
+              <VerticalGridLines />
+              <HorizontalGridLines />
             <VerticalBarSeries data={stats} style={{fill:"blue", stroke: 'none', fillOpacity:'0.5'}} />
-            <XAxis title="Days since patient 0" position="start" style={{fill:"white", stroke: 'none'}}/>
+            <XAxis title="Days" position="start" style={{fill:"white", stroke: 'none'}}/>
             <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
-          <XYPlot height={650} width={950} stroke={"white"}>
-            <LineSeries
+          <XYPlot height={650} width={900}  >
+              <VerticalGridLines />
+              <HorizontalGridLines />
+            <AreaSeries
               data={stats}
+              fill="blue"
+              stroke={"blue"}
+              opacity={0.5}
               style={{strokeLinejoin: 'round', strokeWidth: 4}}
-              onNearestX={(datapoint, event) => {
-                console.log(datapoint);
-              }}
-            />
-            <XAxis title="Days since patient 0" position="end" style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
+                // onNearestX={(datapoint, event) => {
+                //   console.log('graph data',datapoint);
+                />
+            <XAxis title="Days" position="end" style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
             <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         )}

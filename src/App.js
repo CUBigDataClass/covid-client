@@ -18,10 +18,10 @@ function App() {
         <br/>
         <div className="container-fluid">
             <div className="row justify-content-center" id="table" >
-                <div className="col"  >
+                <div className="col-5">
                       <Table></Table>
                 </div>
-                <div className="col">
+                <div className=".col-8">
                    <Graph></Graph>
                 </div>
             </div>

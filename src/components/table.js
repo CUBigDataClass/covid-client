@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import DataTable, {defaultThemes} from 'react-data-table-component';
-import {dark} from "@material-ui/core/styles/createPalette";
+import DataTable from 'react-data-table-component';
 var http = require("http");
 
 
@@ -87,7 +86,7 @@ componentDidMount() {
              selector: 'country',
              sortable: true,
              left: true,
-             minWidth: '50px'
+             minWidth: '40px'
          },
     {
         name: 'Total Cases',
@@ -130,6 +129,15 @@ function createData(name, new_cases, total_cases, new_deaths, total_deaths){
 //     }
 // }
 // load_data(function(){
+     function sleep(milliseconds) {
+    const date = Date.now();
+    let currentDate = null;
+    do {
+        currentDate = Date.now();
+    } while (currentDate-date <milliseconds);
+    }
+     sleep(1500);
+
     let dict = {}
     console.log('total deaths: ', this.state.total_deaths);
     let new_cases = this.state.new_cases
@@ -171,7 +179,7 @@ function createData(name, new_cases, total_cases, new_deaths, total_deaths){
           maxHeight= "500px"
           theme={'dark'}
           highlightOnHover
-          // dense={true}
+            // dense={true}
         />
       </div>
     );

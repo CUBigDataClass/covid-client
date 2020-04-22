@@ -75,14 +75,7 @@ componentDidMount() {
 }
 
  render(){
-    const customStyles = {
-             rows: {
-                 highlightOnHoverStyle: {
-                     backgroundColor: 'blue',
-                     opacity: '0.5',
-                 },
-             }
-     };
+
              const columns = [
 
                  {
@@ -177,7 +170,6 @@ function sleep(milliseconds) {
           maxHeight= "500px"
           theme={'dark'}
           highlightOnHover
-          customStyles={customStyles}
           dense={true}
         />
       </div>

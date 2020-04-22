@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "leaflet/dist/leaflet.css";
 import './graph.css';
-import {XYPlot, XAxis, YAxis, VerticalBarSeries} from 'react-vis';
+import {XYPlot, XAxis, YAxis, VerticalBarSeries, LineSeries} from 'react-vis';
 var http = require("http");
 
 class Graph extends Component {
@@ -40,7 +40,7 @@ class Graph extends Component {
 
     let countries = []
     Object.keys(stats).forEach(function(key) {
-        if (key != "_id" && key != "date") {
+        if (key !== "_id" && key !== "date") {
             countries.push({value: key, display: key})
         }
     });
@@ -121,6 +121,7 @@ class Graph extends Component {
         var stats = this.getDataForCountry();
     }
 
+    const stat = this.state.selectedStat;
 
     return (
       <div className="graph">
@@ -140,11 +141,26 @@ class Graph extends Component {
                 </select>
             </div>
         </div>
-        <XYPlot height={400} width={window.innerWidth} color="white">
-                <VerticalBarSeries data={stats} />
-                <XAxis style={{text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}}}/>
-                <YAxis left={55} style={{text: {stroke: 'none', fill: '#6b6b76', fontWeight: 600}}}/>
-        </XYPlot>
+        {stat === "new_cases" || stat === "new_deaths" ? (
+          <XYPlot height={400} width={window.innerWidth} color="white">
+            <VerticalBarSeries data={stats} />
+            <XAxis title="Days since patient 0" position="start" style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+            <YAxis left={55} style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+          </XYPlot>
+        ) : (
+          <XYPlot height={400} width={window.innerWidth} stroke={"white"}>
+            <LineSeries
+              data={stats}
+              style={{strokeLinejoin: 'round', strokeWidth: 4}}
+              onNearestX={(datapoint, event) => {
+                console.log(datapoint);
+              }}
+            />
+            <XAxis title="Days since patient 0" position="end" style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+            <YAxis left={55} style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+          </XYPlot>
+        )}
+        
       </div>      
     );
   }

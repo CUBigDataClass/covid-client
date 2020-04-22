@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import DataTable from 'react-data-table-component';
+import DataTable, {defaultThemes} from 'react-data-table-component';
+import {dark} from "@material-ui/core/styles/createPalette";
 var http = require("http");
 
 
@@ -79,80 +80,101 @@ componentDidMount() {
 
  render(){
 
-  const columns = [
- 
-    { name: 'Country', selector: 'country', sortable: true },
+     const columns = [
+
+         {
+             name: 'Country',
+             selector: 'country',
+             sortable: true,
+             left: true,
+             minWidth: '50px'
+         },
     {
         name: 'Total Cases',
         selector: 'total_cases',
+        left: true,
+        maxWidth: '50px'
+
     },
     {
         name: 'Total Deaths',
         selector: 'total_deaths',
+        left: true,
+        maxWidth: '50px'
+
     },
     {
         name: 'New Cases',
-        selector: 'new_cases'
+        selector: 'new_cases',
+        left: true,
+        maxWidth: '50px'
+
     },
     {
       name: "New Deaths",
       selector: 'new_deaths',
+        left: true,
+        maxWidth: '50px'
+
   },
 ];
+
 
 function createData(name, new_cases, total_cases, new_deaths, total_deaths){
   return { "country":name, "new_cases": new_cases, "total_cases": total_cases, "new_deaths": new_deaths, "total_deaths": total_deaths };
 }
-  
-    let dict = {} 
-    console.log('total deaths: ', this.state.total_deaths)
+
+// function load_data(callback) {
+//     if ((this.state.total_cases.length == 209)&&(this.state.total_deaths.length==209)&&(this.state.new_cases.length==209)&&(this.state.new_deaths.length==209)){
+//         callback();
+//     }
+// }
+// load_data(function(){
+    let dict = {}
+    console.log('total deaths: ', this.state.total_deaths);
     let new_cases = this.state.new_cases
     for (var key in new_cases) {
-      // console.log('key', key, 'stat: ', new_cases[key])
-      if ((key!= "_id")&&(key!="date"))
-      {dict[key] = [new_cases[key]];}
+        // console.log('key', key, 'stat: ', new_cases[key])
+        if ((key!= "_id")&&(key!="date"))
+        {dict[key] = [new_cases[key]];}
     }
     for (var key in this.state.total_cases) {
-      if ((key!= "_id")&&(key!="date"))
-      {dict[key].push(this.state.total_cases[key]);}
+        if ((key!= "_id")&&(key!="date"))
+        {dict[key].push(this.state.total_cases[key]);}
     }
     for (var key in this.state.new_deaths) {
-      if ((key!= "_id")&&(key!="date"))
-      {dict[key].push(this.state.new_deaths[key]);}
+        if ((key!= "_id")&&(key!="date"))
+        {dict[key].push(this.state.new_deaths[key]);}
     }
-  
-    for (var key in this.state.total_deaths) {
-      if ((key!= "_id")&&(key!="date"))
-      {dict[key].push(this.state.total_deaths[key]);}
-    }
-    
-  const rows =[];
-    for (var key in dict) {
-      // console.log(key, dict[key])
-      rows.push(createData(key, dict[key][0], dict[key][1], dict[key][2], dict[key][3]))
-    }
-    console.log('rows: ', rows)
-    // const classes = this.useStyles();
-    
-    
 
+    for (var key in this.state.total_deaths) {
+        if ((key!= "_id")&&(key!="date"))
+        {dict[key].push(this.state.total_deaths[key]);}
+    }
+
+    const rows =[];
+    for (var key in dict) {
+        // console.log(key, dict[key])
+        rows.push(createData(key, dict[key][0], dict[key][1], dict[key][2], dict[key][3]))
+    }
+    console.log('rows: ', rows);
+    // return rows;
+// });
     return (
       <div className="container">
      
         <DataTable
-          title="Cases by country"
+          title="Country Specific Data"
           columns={columns}
           data={rows}
           fixedHeader={true}
           maxHeight= "500px"
+          theme={'dark'}
+          highlightOnHover
+          // dense={true}
         />
-      </div> 
-
-
+      </div>
     );
-    
-                 
-          
  }   
 }
 export default Comp;

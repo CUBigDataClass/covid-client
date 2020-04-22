@@ -1,7 +1,9 @@
 .graph {
     background-color: #262626;
+    color:  white;
 }
 
 #title {
-    font-size: x-large;
+    font-size: 125%;
+    font-weight: bold;
 }

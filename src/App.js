@@ -13,19 +13,19 @@ function App() {
           <h1 align={'center'} >Covid Tracker</h1>
           <br/>
         <div className="container-fluid">
-            <MapComp></MapComp>
-        </div>
-            <br/>
-        <div className="container-fluid">
-            <div className="row justify-content-center" >
-                <Graph></Graph>
-            </div>
+             <MapComp></MapComp>
         </div>
         <br/>
         <div className="container-fluid">
-            <div className="row justify-content-center" >
-                <Table></Table>
+            <div className="row justify-content-center" id="table" >
+                <div className="col"  >
+                      <Table></Table>
+                </div>
+                <div className="col">
+                   <Graph></Graph>
+                </div>
             </div>
+        <br />
         </div>
           <Box className={"footer"} color="#424242" p={1} id={"box"} >
               <hr color={'#424242'} />

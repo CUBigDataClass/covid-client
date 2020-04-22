@@ -158,6 +158,7 @@ class MapComp extends Component {
         <Map
           style={{ height: "700px", width: '100%' }}
           zoom={1}
+          minZoom={2}
           center={[centerLat, centerLong]}
           bounds={[
             [this.state.minLat - bufferLat, this.state.minLong - bufferLong],
@@ -178,7 +179,7 @@ class MapComp extends Component {
                   radius={4 * Math.log(country["stat"])}
                   fillOpacity={0.5}
                   stroke={false}
-                >
+                                >
                   <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
                     <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
                   </Tooltip>

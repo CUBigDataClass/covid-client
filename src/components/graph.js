@@ -142,13 +142,13 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
-          <XYPlot height={400} width={window.innerWidth} color="white">
-            <VerticalBarSeries data={stats} />
-            <XAxis title="Days since patient 0" position="start" style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
-            <YAxis left={55} style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+          <XYPlot height={650} width={950} color="white">
+            <VerticalBarSeries data={stats} style={{fill:"blue", stroke: 'none', fillOpacity:'0.5'}} />
+            <XAxis title="Days since patient 0" position="start" style={{fill:"white", stroke: 'none'}}/>
+            <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
-          <XYPlot height={400} width={window.innerWidth} stroke={"white"}>
+          <XYPlot height={650} width={950} stroke={"white"}>
             <LineSeries
               data={stats}
               style={{strokeLinejoin: 'round', strokeWidth: 4}}
@@ -156,8 +156,8 @@ class Graph extends Component {
                 console.log(datapoint);
               }}
             />
-            <XAxis title="Days since patient 0" position="end" style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
-            <YAxis left={55} style={{stroke: 'none', fill: '#6b6b76', fontWeight: 600}}/>
+            <XAxis title="Days since patient 0" position="end" style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
+            <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         )}
         

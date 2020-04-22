@@ -8,8 +8,10 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
+
       // url : "https://35.193.65.75:3001/",
       url: "http://localhost:3001/",
+
       countries : [],
       coordinates: [],
       minLat: -6.1751,
@@ -72,7 +74,7 @@ class MapComp extends Component {
       res.on('end', () => {
           try {
               const parsedData = JSON.parse(rawData);
-              var coordinates = {}
+              var coordinates = {};
               for (let i = 0; i < parsedData.length; i++) {
                 coordinates[parsedData[i]._id] = [parsedData[i].longitude, parsedData[i].latitude]
               }
@@ -88,7 +90,7 @@ class MapComp extends Component {
   }
 
   getStats() {
-    var url = this.state.url + "data?type=" +  this.state.selectedStat
+    var url = this.state.url + "data?type=" +  this.state.selectedStat;
     http.get(url, (res) => {
       const { statusCode } = res;
       const contentType = res.headers['content-type'];
@@ -170,12 +172,12 @@ class MapComp extends Component {
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
 
         {this.state.countries.map((country, k) => {
-            if (this.state.coordinates[country["country"]] != undefined) {
+            if (this.state.coordinates[country["country"]] !== undefined) {
               return (
                 <CircleMarker
                   key={k}
-                  color={(((this.state.selectedStat == 'total_cases') || (this.state.selectedStat == 'new_cases'))? 'blue' : 'red')}
-                  fillColor={(((this.state.selectedStat == 'total_cases') || (this.state.selectedStat == 'new_cases'))? 'blue' : 'red')}
+                  color={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
+                  fillColor={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
                   center={this.state.coordinates[country["country"]]}
                   radius={4 * Math.log(country["stat"])}
                   fillOpacity={0.5}

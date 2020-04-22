@@ -166,12 +166,12 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
-          <XYPlot height={650} width={900} color="white" >
+          <XYPlot height={650} width={900} >
               <VerticalGridLines />
               <HorizontalGridLines />
-            <VerticalBarSeries data={stats} style={{fill:"blue", stroke: 'none', fillOpacity:'0.5'}} />
-            <XAxis title="Days" position="start" style={{fill:"white", stroke: 'none'}}/>
-            <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
+            <VerticalBarSeries data={stats} style={{fill:"white", stroke: 'none', fillOpacity:'0.5'}} />
+            <XAxis title="Days" position="end" style={{fill:"white", stroke: 'none'}}/>
+            <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
           <XYPlot height={650} width={900}  >
@@ -179,15 +179,15 @@ class Graph extends Component {
               <HorizontalGridLines />
             <AreaSeries
               data={stats}
-              fill="blue"
-              stroke={"blue"}
+              fill="white"
+              stroke={"white"}
               opacity={0.5}
               style={{strokeLinejoin: 'round', strokeWidth: 4}}
                 // onNearestX={(datapoint, event) => {
                 //   console.log('graph data',datapoint);
                 />
             <XAxis title="Days" position="end" style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
-            <YAxis left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
+            <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         )}
         

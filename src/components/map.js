@@ -8,7 +8,7 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
-      url : "http://35.193.65.75:3001/",
+      url : "https://35.193.65.75:3001/",
       countries : [],
       coordinates: [],
       minLat: -6.1751,

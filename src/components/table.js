@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 var http = require("http");
 
-
 class Comp extends Component {
 
     constructor(props) {
@@ -16,11 +15,8 @@ class Comp extends Component {
     };
    
     this.getStats = this.getStats.bind(this);
-    
-
   }
-  
-    
+
   getStats(url, param) {
     
     http.get(url, (res) => {
@@ -52,11 +48,11 @@ class Comp extends Component {
       res.on('end', () => {
         try {
           const parsedData = JSON.parse(rawData)
-          if (param == "new_cases"){
+          if (param === "new_cases"){
             this.setState({new_cases: parsedData});
-          } else if (param == "total_cases") {
+          } else if (param === "total_cases") {
             this.setState({total_cases: parsedData})
-          } else if (param == "new_deaths") {
+          } else if (param === "new_deaths") {
             this.setState({new_deaths: parsedData});
           } else {
             this.setState({total_deaths: parsedData});
@@ -71,83 +67,87 @@ class Comp extends Component {
   }
   
 componentDidMount() {
-    this.getStats("https://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
-    this.getStats("https://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
-    this.getStats("https://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
-    this.getStats("https://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
   }
 
  render(){
+     const customStyles = {
+             rows: {
+                 highlightOnHoverStyle: {
+                     backgroundColor: 'blue',
+                     opacity: '0.5',
+                 },
+             }
+     };
 
-     const columns = [
+             const columns = [
 
-         {
-             name: 'Country',
-             selector: 'country',
-             sortable: true,
-             left: true,
-             minWidth: '40px'
-         },
-    {
-        name: 'Total Cases',
-        selector: 'total_cases',
-        left: true,
-        maxWidth: '50px'
+                 {
+                     name: 'Country',
+                     selector: 'country',
+                     sortable: true,
+                     left: true,
+                     minWidth: '40px'
+                 },
+                 {
+                     name: 'Total Cases',
+                     selector: 'total_cases',
+                     left: true,
+                     maxWidth: '50px'
 
-    },
-    {
-        name: 'Total Deaths',
-        selector: 'total_deaths',
-        left: true,
-        maxWidth: '50px'
+                 },
+                 {
+                     name: 'Total Deaths',
+                     selector: 'total_deaths',
+                     left: true,
+                     maxWidth: '50px'
 
-    },
-    {
-        name: 'New Cases',
-        selector: 'new_cases',
-        left: true,
-        maxWidth: '50px'
+                 },
+                 {
+                     name: 'New Cases',
+                     selector: 'new_cases',
+                     left: true,
+                     maxWidth: '50px'
 
-    },
-    {
-      name: "New Deaths",
-      selector: 'new_deaths',
-        left: true,
-        maxWidth: '50px'
+                 },
+                 {
+                     name: "New Deaths",
+                     selector: 'new_deaths',
+                     left: true,
+                     maxWidth: '50px'
 
-  },
-];
+                 },
+             ];
+
 
 
 function createData(name, new_cases, total_cases, new_deaths, total_deaths){
   return { "country":name, "new_cases": new_cases, "total_cases": total_cases, "new_deaths": new_deaths, "total_deaths": total_deaths };
 }
 
-// function load_data(callback) {
-//     if ((this.state.total_cases.length == 209)&&(this.state.total_deaths.length==209)&&(this.state.new_cases.length==209)&&(this.state.new_deaths.length==209)){
-//         callback();
-//     }
-// }
-// load_data(function(){
-     function sleep(milliseconds) {
+function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
     do {
         currentDate = Date.now();
     } while (currentDate-date <milliseconds);
     }
-     sleep(1500);
+
+    sleep(1500);
 
     let dict = {}
     console.log('total deaths: ', this.state.total_deaths);
     let new_cases = this.state.new_cases
     for (var key in new_cases) {
         // console.log('key', key, 'stat: ', new_cases[key])
-        if ((key!= "_id")&&(key!="date"))
+        if ((key!== "_id")&&(key!=="date"))
         {dict[key] = [new_cases[key]];}
     }
     for (var key in this.state.total_cases) {
-        if ((key!= "_id")&&(key!="date"))
+        if ((key!== "_id")&&(key!=="date"))
         {dict[key].push(this.state.total_cases[key]);}
     }
     for (var key in this.state.new_deaths) {
@@ -162,12 +162,10 @@ function createData(name, new_cases, total_cases, new_deaths, total_deaths){
 
     const rows =[];
     for (var key in dict) {
-        // console.log(key, dict[key])
         rows.push(createData(key, dict[key][0], dict[key][1], dict[key][2], dict[key][3]))
     }
     console.log('rows: ', rows);
-    // return rows;
-// });
+
     return (
       <div className="container">
      
@@ -179,7 +177,8 @@ function createData(name, new_cases, total_cases, new_deaths, total_deaths){
           maxHeight= "500px"
           theme={'dark'}
           highlightOnHover
-            // dense={true}
+          customStyles={customStyles}
+          dense={true}
         />
       </div>
     );

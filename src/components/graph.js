@@ -20,7 +20,8 @@ class Graph extends Component {
     super(props);
 
     this.state = {
-      url : "https://35.193.65.75:3001/",
+      // url : "https://35.193.65.75:3001/",
+      url: "http://localhost:3001/",
       selectedStat: "total_cases",
       dates: [],
       country: "World",

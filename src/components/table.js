@@ -67,14 +67,15 @@ class Comp extends Component {
   }
   
 componentDidMount() {
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
-  }
+
+    this.getStats("http://localhost:3001/data_nocoords?type=new_cases", "new_cases");
+    this.getStats("http://localhost:3001/data_nocoords?type=total_cases", "total_cases");
+    this.getStats("http://localhost:3001/data_nocoords?type=total_deaths", "total_deaths");
+    this.getStats("http://localhost:3001/data_nocoords?type=new_deaths", "new_deaths");
+}
 
  render(){
-     const customStyles = {
+    const customStyles = {
              rows: {
                  highlightOnHoverStyle: {
                      backgroundColor: 'blue',
@@ -82,7 +83,6 @@ componentDidMount() {
                  },
              }
      };
-
              const columns = [
 
                  {

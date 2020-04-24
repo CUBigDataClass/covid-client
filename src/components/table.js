@@ -96,34 +96,34 @@ componentDidMount() {
                      selector: 'country',
                      sortable: true,
                      left: true,
-                     minWidth: '40px'
+                     // minWidth: '40px'
                  },
                  {
                      name: 'Total Cases',
                      selector: 'total_cases',
                      left: true,
-                     maxWidth: '50px'
+                     // maxWidth: '50px'
 
                  },
                  {
                      name: 'Total Deaths',
                      selector: 'total_deaths',
                      left: true,
-                     maxWidth: '50px'
+                     // maxWidth: '50px'
 
                  },
                  {
                      name: 'New Cases',
                      selector: 'new_cases',
                      left: true,
-                     maxWidth: '50px'
+                     // maxWidth: '50px'
 
                  },
                  {
                      name: "New Deaths",
                      selector: 'new_deaths',
                      left: true,
-                     maxWidth: '50px'
+                     // maxWidth: '50px'
 
                  },
              ];

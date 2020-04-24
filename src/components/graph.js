@@ -166,7 +166,7 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
-          <XYPlot height={650} width={900} >
+          <XYPlot height={650} width={window.innerWidth - 100} >
               <VerticalGridLines />
               <HorizontalGridLines />
             <VerticalBarSeries data={stats} style={{fill:"white", stroke: 'none', fillOpacity:'0.5'}} />
@@ -174,7 +174,7 @@ class Graph extends Component {
             <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
-          <XYPlot height={650} width={900}  >
+          <XYPlot height={650} width={window.innerWidth - 100}  >
               <VerticalGridLines />
               <HorizontalGridLines />
             <AreaSeries

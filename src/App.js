@@ -17,16 +17,18 @@ function App() {
         </div>
         <br/>
         <div className="container-fluid">
-            <div className="row justify-content-center" id="table" >
-                <div className="col-5">
+                <div className="row justify-content-center">
                       <Table></Table>
                 </div>
-                <div className=".col-8">
+
+        </div>
+          <br />
+          <div className="container-fluid">
+                <div className="row justify-content-center">
                    <Graph></Graph>
                 </div>
-            </div>
+          </div>
         <br />
-        </div>
           <Box className={"footer"} color="#424242" p={1} id={"box"} >
               <hr color={'#424242'} />
               <p id="footer-content">Copyright © 2020 - Matthew Donovan, Maura Winstanley, Kyle Bremont, Alison Ostlund </p>

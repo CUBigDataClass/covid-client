@@ -183,7 +183,7 @@ function sleep(milliseconds) {
           maxHeight= "500px"
           theme={'dark'}
           highlightOnHover
-          dense={true}
+          // dense={true}
         />
       </div>
     );

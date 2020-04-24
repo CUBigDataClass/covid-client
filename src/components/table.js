@@ -142,7 +142,7 @@ function sleep(milliseconds) {
     } while (currentDate-date <milliseconds);
     }
 
-    sleep(1500);
+    sleep(2500);
 
     let dict = {}
     console.log('total deaths: ', this.state.total_deaths);

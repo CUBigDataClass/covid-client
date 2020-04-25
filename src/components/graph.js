@@ -148,7 +148,7 @@ class Graph extends Component {
 
 
     return (
-      <div className="graph">
+      <div className="graph" align={'center'}>
         <div className="row justify-content">
             <div className="col-sm-3" id="title" >
                 COVID-19 Over Time
@@ -166,7 +166,7 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
-          <XYPlot height={650} width={window.innerWidth - 100} >
+          <XYPlot height={650} width={750} >
               <VerticalGridLines />
               <HorizontalGridLines />
             <VerticalBarSeries data={stats} style={{fill:"white", stroke: 'none', fillOpacity:'0.5'}} />
@@ -174,7 +174,7 @@ class Graph extends Component {
             <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
-          <XYPlot height={650} width={window.innerWidth - 100}  >
+          <XYPlot height={650} width={750}  >
               <VerticalGridLines />
               <HorizontalGridLines />
             <AreaSeries
@@ -183,8 +183,6 @@ class Graph extends Component {
               stroke={"white"}
               opacity={0.5}
               style={{strokeLinejoin: 'round', strokeWidth: 4}}
-                // onNearestX={(datapoint, event) => {
-                //   console.log('graph data',datapoint);
                 />
             <XAxis title="Days" position="end" style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
             <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>

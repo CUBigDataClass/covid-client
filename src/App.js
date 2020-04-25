@@ -16,18 +16,24 @@ function App() {
              <MapComp></MapComp>
         </div>
         <br/>
-        <div className="container-fluid">
+        <div className="container-fluid justify-content-center">
                 <div className="row justify-content-center">
+                    <div clasName={"col-5"}>
                       <Table></Table>
+                    </div>
+                    <div clasName={"col-sm-3"} >
+                        <Graph></Graph>
+                    </div>
                 </div>
-
         </div>
-          <br />
-          <div className="container-fluid">
-                <div className="row justify-content-center">
-                   <Graph></Graph>
-                </div>
-          </div>
+
+        {/*</div>*/}
+        {/*  <br />*/}
+        {/*  <div className="container-fluid">*/}
+        {/*        <div className="row justify-content-center">*/}
+        {/*           <Graph></Graph>*/}
+        {/*        </div>*/}
+        {/*  </div>*/}
         <br />
           <Box className={"footer"} color="#424242" p={1} id={"box"} >
               <hr color={'#424242'} />

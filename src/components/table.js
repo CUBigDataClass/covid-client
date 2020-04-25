@@ -68,24 +68,12 @@ class Comp extends Component {
   
 componentDidMount() {
 
-    // this.getStats("http://localhost:3001/data_nocoords?type=new_cases", "new_cases");
-    // this.getStats("http://localhost:3001/data_nocoords?type=total_cases", "total_cases");
-    // this.getStats("http://localhost:3001/data_nocoords?type=total_deaths", "total_deaths");
-    // this.getStats("http://localhost:3001/data_nocoords?type=new_deaths", "new_deaths");
-
-    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=new_cases", "new_cases");
-    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=total_cases", "total_cases");
-    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=total_deaths", "total_deaths");
-    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=new_deaths", "new_deaths");
-
-
     this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
     this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
     this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
     this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
 
 }
-// 35.193.65.75
 
  render(){
 
@@ -96,34 +84,29 @@ componentDidMount() {
                      selector: 'country',
                      sortable: true,
                      left: true,
-                     // minWidth: '40px'
                  },
                  {
                      name: 'Total Cases',
                      selector: 'total_cases',
                      left: true,
-                     // maxWidth: '50px'
 
                  },
                  {
                      name: 'Total Deaths',
                      selector: 'total_deaths',
                      left: true,
-                     // maxWidth: '50px'
 
                  },
                  {
                      name: 'New Cases',
                      selector: 'new_cases',
                      left: true,
-                     // maxWidth: '50px'
 
                  },
                  {
                      name: "New Deaths",
                      selector: 'new_deaths',
                      left: true,
-                     // maxWidth: '50px'
 
                  },
              ];
@@ -148,7 +131,6 @@ function sleep(milliseconds) {
     console.log('total deaths: ', this.state.total_deaths);
     let new_cases = this.state.new_cases
     for (var key in new_cases) {
-        // console.log('key', key, 'stat: ', new_cases[key])
         if ((key!== "_id")&&(key!=="date"))
         {dict[key] = [new_cases[key]];}
     }
@@ -183,7 +165,7 @@ function sleep(milliseconds) {
           maxHeight= "500px"
           theme={'dark'}
           highlightOnHover
-          // dense={true}
+          dense={true}
         />
       </div>
     );

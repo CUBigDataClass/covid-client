@@ -7,10 +7,7 @@ import {
     YAxis,
     VerticalBarSeries,
     VerticalGridLines,
-    LineSeries,
     AreaSeries,
-    Hint,
-    Crosshair,
     HorizontalGridLines
 } from 'react-vis';
 var http = require("http");
@@ -22,7 +19,6 @@ class Graph extends Component {
     this.state = {
 
       url : "http://35.193.65.75:3001/",
-      // url: "http://localhost:3001/",
 
       selectedStat: "total_cases",
       dates: [],

@@ -22,6 +22,6 @@
     /*padding: 5px;*/
 }
 #table{
-    height: 675px;
-    overflow: hidden;
+    height: 600px;
+    overflow: scroll;
 }

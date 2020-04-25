@@ -16,18 +16,32 @@ function App() {
              <MapComp></MapComp>
         </div>
         <br/>
+<<<<<<< HEAD
         <div className="container-fluid justify-content-center">
                 <div className="row justify-content-center">
                     <div clasName={"col-5"}>
+=======
+        <div className="container-fluid">
+            <div className="row justify-content-center" id="table" >
+                <div className="col-5">
+>>>>>>> parent of 99cd844... layout change for heroku visability
                       <Table></Table>
                     </div>
                     <div clasName={"col-5"} >
                         <Graph></Graph>
                     </div>
                 </div>
+<<<<<<< HEAD
         </div>
 
+=======
+                <div className=".col-8">
+                   <Graph></Graph>
+                </div>
+            </div>
+>>>>>>> parent of 99cd844... layout change for heroku visability
         <br />
+        </div>
           <Box className={"footer"} color="#424242" p={1} id={"box"} >
               <hr color={'#424242'} />
               <p id="footer-content">Copyright © 2020 - Matthew Donovan, Maura Winstanley, Kyle Bremont, Alison Ostlund </p>

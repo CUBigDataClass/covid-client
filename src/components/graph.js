@@ -162,7 +162,11 @@ class Graph extends Component {
             </div>
         </div>
         {stat === "new_cases" || stat === "new_deaths" ? (
+<<<<<<< HEAD
           <XYPlot height={650} width={750} >
+=======
+          <XYPlot height={650} width={900} >
+>>>>>>> parent of 99cd844... layout change for heroku visability
               <VerticalGridLines />
               <HorizontalGridLines />
             <VerticalBarSeries data={stats} style={{fill:"white", stroke: 'none', fillOpacity:'0.5'}} />
@@ -170,7 +174,11 @@ class Graph extends Component {
             <YAxis title={stat} position="middle" left={55} style={{stroke: 'none', fill: 'white', fontWeight: 400}}/>
           </XYPlot>
         ) : (
+<<<<<<< HEAD
           <XYPlot height={650} width={750}  >
+=======
+          <XYPlot height={650} width={900}  >
+>>>>>>> parent of 99cd844... layout change for heroku visability
               <VerticalGridLines />
               <HorizontalGridLines />
             <AreaSeries

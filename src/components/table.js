@@ -73,8 +73,6 @@ componentDidMount() {
     this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_deaths", "total_deaths");
     this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_deaths", "new_deaths");
 
-    // http://130.211.208.0:3001/data_nocoords?type=new_cases
-
 }
 
  render(){
@@ -86,49 +84,29 @@ componentDidMount() {
                      selector: 'country',
                      sortable: true,
                      left: true,
-<<<<<<< HEAD
-=======
-                     minWidth: '40px'
->>>>>>> parent of 99cd844... layout change for heroku visability
                  },
                  {
                      name: 'Total Cases',
                      selector: 'total_cases',
                      left: true,
-<<<<<<< HEAD
-=======
-                     maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: 'Total Deaths',
                      selector: 'total_deaths',
                      left: true,
-<<<<<<< HEAD
-=======
-                     maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: 'New Cases',
                      selector: 'new_cases',
                      left: true,
-<<<<<<< HEAD
-=======
-                     maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: "New Deaths",
                      selector: 'new_deaths',
                      left: true,
-<<<<<<< HEAD
-=======
-                     maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
              ];

@@ -97,11 +97,11 @@ shouldComponentUpdate(nextProps, nextState) {
 // 35.193.65.75
 
  render(){
-  this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
+  this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_cases", "total_cases");
+    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_cases", "new_cases");
     
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
-    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
+    this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_deaths", "total_deaths");
+    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_deaths", "new_deaths");
   console.log('state in render: ', this.state)
 
              const columns = [

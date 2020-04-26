@@ -131,6 +131,7 @@ class MapComp extends Component {
 
   componentDidMount() {
     this.populateDropdown();
+    console.log("state: ", this.state)
   }
 
   render() {

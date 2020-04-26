@@ -3,7 +3,15 @@ import DataTable from 'react-data-table-component';
 var http = require("http");
 
 class Comp extends Component {
-
+shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.new_deaths != [] && this.state.new_cases!= [] && this.state.total_deaths!= [] && this.state.total_cases!= []) {
+      console.log('dont rereender')
+      return false;
+    } else {
+      console.log('do rerender')
+      return true;
+    }
+  }
     constructor(props) {
     super(props);
 
@@ -49,6 +57,7 @@ class Comp extends Component {
         try {
           const parsedData = JSON.parse(rawData)
           if (param === "new_cases"){
+            // preventDefault();
             this.setState({new_cases: parsedData});
           } else if (param === "total_cases") {
             this.setState({total_cases: parsedData})
@@ -66,18 +75,34 @@ class Comp extends Component {
     });
   }
   
-componentDidMount() {
+// componentDidMount() {
 
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_cases", "new_cases");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_cases", "total_cases");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_deaths", "total_deaths");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_deaths", "new_deaths");
+    // this.getStats("http://localhost:3001/data_nocoords?type=new_cases", "new_cases");
+    // this.getStats("http://localhost:3001/data_nocoords?type=total_cases", "total_cases");
+    // this.getStats("http://localhost:3001/data_nocoords?type=total_deaths", "total_deaths");
+    // this.getStats("http://localhost:3001/data_nocoords?type=new_deaths", "new_deaths");
 
-    // http://130.211.208.0:3001/data_nocoords?type=new_cases
+    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=new_cases", "new_cases");
+    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=total_cases", "total_cases");
+    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=total_deaths", "total_deaths");
+    // this.getStats("http://74.125.72.101:3001/data_nocoords?type=new_deaths", "new_deaths");
 
-}
+    // this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
+    // this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
+    
+    // this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
+    // this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
+
+// }
+// 35.193.65.75
 
  render(){
+  this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_cases", "total_cases");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_cases", "new_cases");
+    
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=total_deaths", "total_deaths");
+    this.getStats("http://35.193.65.75:3001/data_nocoords?type=new_deaths", "new_deaths");
+  console.log('state in render: ', this.state)
 
              const columns = [
 
@@ -86,49 +111,34 @@ componentDidMount() {
                      selector: 'country',
                      sortable: true,
                      left: true,
-<<<<<<< HEAD
-=======
                      minWidth: '40px'
->>>>>>> parent of 99cd844... layout change for heroku visability
                  },
                  {
                      name: 'Total Cases',
                      selector: 'total_cases',
                      left: true,
-<<<<<<< HEAD
-=======
                      maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: 'Total Deaths',
                      selector: 'total_deaths',
                      left: true,
-<<<<<<< HEAD
-=======
                      maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: 'New Cases',
                      selector: 'new_cases',
                      left: true,
-<<<<<<< HEAD
-=======
                      maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
                  {
                      name: "New Deaths",
                      selector: 'new_deaths',
                      left: true,
-<<<<<<< HEAD
-=======
                      maxWidth: '50px'
->>>>>>> parent of 99cd844... layout change for heroku visability
 
                  },
              ];
@@ -146,13 +156,44 @@ function sleep(milliseconds) {
         currentDate = Date.now();
     } while (currentDate-date <milliseconds);
     }
+sleep(2500);
+    
+// if (this.state.total_deaths.length == 0) {
+//   console.log("before sleep: ", this.state.total_deaths.length)
+//   sleep(2500);
+// } else {
+//   console.log("length after sleep: " , this.state.total_deaths.length)
+// }
+function load_data(callback) {
+  console.log("state: ", this)
+  // if (typeof this.state=== 'undefined') {
+  //     console.log('undefined')
+  //   }
+  // try {
+  //   if (typeof this.state.new_cases == 'undefined') {
+  //     console.log('undefined')
+  //   }
+  //   if ( (this.state.new_cases.length == 209) && (this.state.total_deaths.length == 209) && (this.state.new_deaths.length == 209) && (this.state.total_cases.length == 209)) {
+  //     callback();
+  //   }
 
-    sleep(2500);
+  // }
+  // catch(error) {
+  //   console.log('error: ', error);
+  //   sleep(2500);
+  //   callback();
+  // }
+  
+  
+}
 
-    let dict = {}
-    console.log('total deaths: ', this.state.total_deaths);
+const rows =[];
+// load_data(function() {
+  let dict = {}
+    // console.log('total deaths: ', this.state.total_deaths);
     let new_cases = this.state.new_cases
     for (var key in new_cases) {
+        // console.log('key', key, 'stat: ', new_cases[key])
         if ((key!== "_id")&&(key!=="date"))
         {dict[key] = [new_cases[key]];}
     }
@@ -170,11 +211,14 @@ function sleep(milliseconds) {
         {dict[key].push(this.state.total_deaths[key]);}
     }
 
-    const rows =[];
+    
     for (var key in dict) {
         rows.push(createData(key, dict[key][0], dict[key][1], dict[key][2], dict[key][3]))
     }
     console.log('rows: ', rows);
+// });
+
+    
 
     return (
       <div className="container">

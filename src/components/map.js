@@ -8,8 +8,8 @@ class MapComp extends Component {
     super(props);
 
     this.state = {
-      url: "http://130.211.208.0:3001/",
-      // url : "http://35.193.65.75:3001/",
+
+      url : "http://35.193.65.75:3001/",
       countries : [],
       coordinates: [],
       minLat: -6.1751,
@@ -131,7 +131,6 @@ class MapComp extends Component {
 
   componentDidMount() {
     this.populateDropdown();
-    console.log("state: ", this.state)
   }
 
   render() {

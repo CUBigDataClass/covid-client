@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import DataTable from 'react-data-table-component';
 var http = require("http");
 
-class Comp extends Component {
+class Table extends Component {
 
     constructor(props) {
     super(props);
 
     this.state = {
+      url : "http://130.211.208.0:3001/",
       new_cases: [], 
       new_deaths: [],
       total_cases: [],
@@ -67,92 +68,64 @@ class Comp extends Component {
   }
   
 componentDidMount() {
-
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_cases", "new_cases");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_cases", "total_cases");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=total_deaths", "total_deaths");
-    this.getStats("http://130.211.208.0:3001/data_nocoords?type=new_deaths", "new_deaths");
-
+    this.getStats(this.state.url + "data_nocoords?type=new_cases", "new_cases");
+    this.getStats(this.state.url + "data_nocoords?type=total_cases", "total_cases");
+    this.getStats(this.state.url + "data_nocoords?type=total_deaths", "total_deaths");
+    this.getStats(this.state.url + "data_nocoords?type=new_deaths", "new_deaths");
 }
 
  render(){
 
-             const columns = [
+  const columns = [
 
-                 {
-                     name: 'Country',
-                     selector: 'country',
-                     sortable: true,
-                     left: true,
-                 },
-                 {
-                     name: 'Total Cases',
-                     selector: 'total_cases',
-                     left: true,
+      {
+          name: 'Country',
+          selector: 'country',
+          sortable: true,
+          left: true,
+      },
+      {
+          name: 'Total Cases',
+          selector: 'total_cases',
+          left: true,
 
-                 },
-                 {
-                     name: 'Total Deaths',
-                     selector: 'total_deaths',
-                     left: true,
+      },
+      {
+          name: 'Total Deaths',
+          selector: 'total_deaths',
+          left: true,
 
-                 },
-                 {
-                     name: 'New Cases',
-                     selector: 'new_cases',
-                     left: true,
+      },
+      {
+          name: 'New Cases',
+          selector: 'new_cases',
+          left: true,
 
-                 },
-                 {
-                     name: "New Deaths",
-                     selector: 'new_deaths',
-                     left: true,
+      },
+      {
+          name: "New Deaths",
+          selector: 'new_deaths',
+          left: true,
 
-                 },
-             ];
+      },
+  ];
 
-
-
-function createData(name, new_cases, total_cases, new_deaths, total_deaths){
-  return { "country":name, "new_cases": new_cases, "total_cases": total_cases, "new_deaths": new_deaths, "total_deaths": total_deaths };
-}
-
-function sleep(milliseconds) {
-    const date = Date.now();
-    let currentDate = null;
-    do {
-        currentDate = Date.now();
-    } while (currentDate-date <milliseconds);
-    }
-
-    sleep(2500);
-
-    let dict = {}
-    console.log('total deaths: ', this.state.total_deaths);
+    let table = {}
     let new_cases = this.state.new_cases
-    for (var key in new_cases) {
-        if ((key!== "_id")&&(key!=="date"))
-        {dict[key] = [new_cases[key]];}
-    }
-    for (var key in this.state.total_cases) {
-        if ((key!== "_id")&&(key!=="date"))
-        {dict[key].push(this.state.total_cases[key]);}
-    }
-    for (var key in this.state.new_deaths) {
-        if ((key!= "_id")&&(key!="date"))
-        {dict[key].push(this.state.new_deaths[key]);}
-    }
 
-    for (var key in this.state.total_deaths) {
-        if ((key!= "_id")&&(key!="date"))
-        {dict[key].push(this.state.total_deaths[key]);}
+    for (var key in new_cases) {
+        if ((key!== "_id") && (key!=="date")) {
+          table[key] = [new_cases[key]];
+          table[key].push(this.state.total_cases[key]);
+          table[key].push(this.state.new_deaths[key]);
+          table[key].push(this.state.total_deaths[key]);
+        }
     }
 
     const rows =[];
-    for (var key in dict) {
-        rows.push(createData(key, dict[key][0], dict[key][1], dict[key][2], dict[key][3]))
+    for (var key in table) {
+        rows.push(createData(key, table[key][0], table[key][1], table[key][2], table[key][3]))
     }
-    console.log('rows: ', rows);
 
     return (
       <div className="container">
@@ -171,4 +144,10 @@ function sleep(milliseconds) {
     );
  }   
 }
-export default Comp;
+
+
+function createData(name, new_cases, total_cases, new_deaths, total_deaths){
+  return { "country":name, "new_cases": new_cases, "total_cases": total_cases, "new_deaths": new_deaths, "total_deaths": total_deaths };
+}
+
+export default Table;

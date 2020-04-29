@@ -9,7 +9,7 @@ class MapComp extends Component {
 
     this.state = {
 
-      url : "http://130.211.208.0:3001/",
+      url : "http://35.188.77.106:3001/",
       countries : [],
       coordinates: [],
       minLat: -6.1751,
@@ -118,6 +118,7 @@ class MapComp extends Component {
       res.on('end', () => {
           try {
               const parsedData = JSON.parse(rawData);
+              console.log(rawData)
               this.setState({countries: parsedData})
 
           } catch (e) {
@@ -148,7 +149,6 @@ class MapComp extends Component {
     if (this.state.countries.length === 0) {
       this.getStats();
     }
-    console.log('changed')
 
     return (
 
@@ -170,20 +170,20 @@ class MapComp extends Component {
           scrollWheelZoom={false}
         >
           <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
-
         {this.state.countries.map((country, k) => {
+          console.log(country)
             if (this.state.coordinates[country["country"]] !== undefined) {
               return (
                 <CircleMarker
                   key={k}
-                  color={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'rgba(0, 0, 255, 0.0099)' : 'rgba(255, 0, 0, 0.0099)')}
-                  fillColor={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'rgba(0, 0, 255, 0.0099)' : 'rgba(255, 0, 0, 0.0099)')}
+                  color={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
+                  fillColor={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
                   center={this.state.coordinates[country["country"]]}
                   radius={4 * Math.log(country["stat"])}
-                  
+                  fillOpacity={.5}
                   stroke={false}
                                 >
-                  <Tooltip direction="right" offset={[-8, -2]} opacity={.5}>
+                  <Tooltip direction="right" offset={[-8, -2]} opacity={.8}>
                     
                     <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
                   </Tooltip>

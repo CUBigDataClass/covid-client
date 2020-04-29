@@ -8,7 +8,7 @@ class Table extends Component {
     super(props);
 
     this.state = {
-      url : "http://130.211.208.0:3001/",
+      url : "http://35.188.77.106:3001/",
       new_cases: [], 
       new_deaths: [],
       total_cases: [],

@@ -148,8 +148,10 @@ class MapComp extends Component {
     if (this.state.countries.length === 0) {
       this.getStats();
     }
+    console.log('changed')
 
     return (
+
       <div>
         <div>
          Data type: <select onChange={(e) => this.changeStat(e.target.value)}>
@@ -174,14 +176,15 @@ class MapComp extends Component {
               return (
                 <CircleMarker
                   key={k}
-                  color={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
-                  fillColor={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'blue' : 'red')}
+                  color={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'rgba(0, 0, 255, 0.0099)' : 'rgba(255, 0, 0, 0.0099)')}
+                  fillColor={(((this.state.selectedStat === 'total_cases') || (this.state.selectedStat === 'new_cases'))? 'rgba(0, 0, 255, 0.0099)' : 'rgba(255, 0, 0, 0.0099)')}
                   center={this.state.coordinates[country["country"]]}
                   radius={4 * Math.log(country["stat"])}
-                  fillOpacity={0.5}
+                  
                   stroke={false}
                                 >
-                  <Tooltip direction="right" offset={[-8, -2]} opacity={1}>
+                  <Tooltip direction="right" offset={[-8, -2]} opacity={.5}>
+                    
                     <span>{country["country"] + " " + this.state.selectedStat + ": " + country["stat"]}</span>
                   </Tooltip>
                 </CircleMarker>)
